@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Calendar</string>
-    <string name="app_launcher_name">Calendar</string>
+    <string name="app_name">AmI Sitter</string>
+    <string name="app_launcher_name">AmI_Sitter</string>
     <string name="change_view">Change view</string>
     <string name="daily_view">Daily view</string>
     <string name="weekly_view">Weekly view</string>
@@ -201,7 +201,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A simple calendar with events, customizable widget and no ads.</string>
+    <string name="app_short_description">A simple app, useful in order to take care of your baby.</string>
     <string name="app_long_description">
         A simple calendar with optional CalDAV synchronization. You can easily create recurring events and setup reminders, it can also display week numbers.
 
@@ -215,6 +215,14 @@
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
     </string>
+    <string name="go_to_calendar">Go to calendar</string>
+    <string name="AmI_Sitter">AmI Sitter</string>
+    <string name="baby_monitor">baby_monitor</string>
+    <string name="agenda">agenda</string>
+    <string name="ami_sitter">AmI Sitter</string>
+    <string name="microphone">microphone</string>
+    <string name="music_player">music_player</string>
+    <string name="Ami_sitter">AmI Sitter</string>
 
     <!--
         Haven't found some strings? There's more at

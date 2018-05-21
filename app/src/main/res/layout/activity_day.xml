@@ -9,8 +9,8 @@
     <com.simplemobiletools.commons.views.MyViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/activity_margin"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin" />
 
     <com.simplemobiletools.commons.views.MyFloatingActionButton
         android:id="@+id/day_fab"
