@@ -52,6 +52,7 @@
             android:background="@drawable/music_player"
             android:gravity="top|center_horizontal"
             android:text="@string/music_player"
+            android:onClick="openMusic"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="22sp" />
 
@@ -98,14 +99,14 @@
 
         <Switch
             android:id="@+id/switch1"
-            android:layout_width="103dp"
+            android:layout_width="81dp"
             android:layout_height="39dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="183dp"
             android:text="Switch"
             android:textColor="@android:color/background_light"
-            tools:text="Switch" />
+            tools:text="Toy" />
 
     </RelativeLayout>
 
