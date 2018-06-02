@@ -1,5 +1,7 @@
 package com.simplemobiletools.calendar.debug;
 
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,12 +14,15 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.springframework.web.client.RestTemplate;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -38,7 +43,11 @@ public class MusicActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> positions;
     ArrayList<String> names;
-    private String basename="http://.";
+    WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+    WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+    int ip = wifiInfo.getIpAddress();
+    String ipAddress = Formatter.formatIpAddress(ip);
+    private String basename=ipAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,9 +227,6 @@ public class MusicActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         public void run() {
 
-                            String msg = "File Upload Completed.\n\n See uploaded file here : \n\n"
-                                    +" http://www.androidexample.com/media/uploads/"
-                                    +uploadFileName;
 
                             //messageText.setText(msg);
                             Toast.makeText(getApplicationContext(), "File Upload Complete.",
@@ -268,5 +274,11 @@ public class MusicActivity extends AppCompatActivity {
 
         } // End else block
     }
+    public static void addSong(String SourceUri, String name, String uploadPath){
+        File sourceFile = new File(SourceUri);
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForObject(uploadPath, sourceFile, File.class);
+    }
+
 }
 
