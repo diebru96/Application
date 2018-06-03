@@ -1,10 +1,14 @@
 package com.simplemobiletools.calendar.debug;
 
+import android.app.DownloadManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.bumptech.glide.request.Request;
+import com.facebook.stetho.inspector.network.RequestBodyHelper;
+import com.facebook.stetho.inspector.protocol.module.Network;
 import com.simplemobiletools.calendar.R;
 import android.Manifest;
 import android.content.ContentResolver;
@@ -22,17 +26,26 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.client.OkHttpClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 import static android.widget.Toast.LENGTH_LONG;
+import static com.simplemobiletools.commons.extensions.StringKt.getMimeType;
 
 public class MusicActivity extends AppCompatActivity {
 
@@ -137,6 +150,7 @@ public class MusicActivity extends AppCompatActivity {
         }
     }
 
+    //metodo 1(marcio, non s se funziona)
     public int uploadFile(String sourceFileUri, String uploadFilePath , final String uploadFileName) {
         String fileName = sourceFileUri;
 
@@ -274,10 +288,43 @@ public class MusicActivity extends AppCompatActivity {
 
         } // End else block
     }
-    public static void addSong(String SourceUri, String name, String uploadPath){
+
+    //metodo 2 (necessario database)
+    public void addSong(String SourceUri, String name, String uploadPath){
         File sourceFile = new File(SourceUri);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject(uploadPath, sourceFile, File.class);
+    }
+
+    //metodo 3 (sembra funzionante)
+    public void upload(final String source, final String destination) {
+        Thread t=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                File f= new File(source);
+                String contentType=getMimeType(f.getPath());
+                String filePath= f.getAbsolutePath();
+                OkHttpClient client= new OkHttpClient();
+                RequestBody fileBody= RequestBody.create(okhttp3.MediaType.parse(contentType),f);
+                RequestBody requestBody= new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("type", contentType)
+                        .addFormDataPart("uploaded_file", filePath.substring(filePath.lastIndexOf("/")+1), fileBody)
+                        .build();
+                okhttp3.Request request= new okhttp3.Request.Builder()
+                        .url(destination)
+                        .post(requestBody)
+                        .build();
+                try
+                {
+                    Response response=client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        t.start();
     }
 
 }
