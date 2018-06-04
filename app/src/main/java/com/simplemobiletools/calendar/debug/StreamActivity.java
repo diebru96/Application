@@ -5,7 +5,11 @@ import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Formatter;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.simplemobiletools.calendar.R;
 
@@ -24,4 +28,7 @@ public class StreamActivity extends AppCompatActivity {
         WebView mWebView = (WebView) findViewById(R.id.stream);
         mWebView.loadUrl(piAddress);
     }
+
+
+
 }

@@ -56,16 +56,17 @@ public class MusicActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayList<String> positions;
     ArrayList<String> names;
-    WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-    WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-    int ip = wifiInfo.getIpAddress();
-    String ipAddress = Formatter.formatIpAddress(ip);
-    private String basename=ipAddress;
+    private String basename="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+        WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+        String ipAddress = Formatter.formatIpAddress(ip);
+        basename=ipAddress;
         if(ContextCompat.checkSelfPermission(MusicActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
         {
             if(ActivityCompat.shouldShowRequestPermissionRationale(MusicActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))

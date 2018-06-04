@@ -223,6 +223,7 @@
     <string name="microphone">microphone</string>
     <string name="music_player">music_player</string>
     <string name="Ami_sitter">AmI Sitter</string>
+    <string name="ami_cam">AmI Cam</string>
 
     <!--
         Haven't found some strings? There's more at
